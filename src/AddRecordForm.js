@@ -8,7 +8,7 @@ export default class AddRecordForm extends Component {
 
     this.handleDateChange = this.handleDateChange.bind(this);
     this.handleWeightChange = this.handleWeightChange.bind(this);
-    this.addData = this.addData.bind(this);
+    this.addRecord = this.addRecord.bind(this);
   }
 
   handleDateChange(event) {
