@@ -1,6 +1,7 @@
+import moment from 'moment';
 import React, { Component } from 'react';
 import { Line } from 'react-chartjs-2';
-import moment from 'moment';
+import { Menu } from 'semantic-ui-react';
 import AddRecordForm from './AddRecordForm';
 import './App.css';
 
@@ -68,12 +69,15 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className="top">
-          <div>開始日：{this.state.startDate}</div>
-          <div>
+        <Menu borderless size="huge">
+          <Menu.Item>
+            <span className="app-title">計るだけ！ダイエット</span>（{this.state.startDate} から開始中）
+          </Menu.Item>
+
+          <Menu.Item position='right'>
             <AddRecordForm onSubmit={this.handleAddRecord} />
-          </div>
-        </div>
+          </Menu.Item>
+        </Menu>
         <div className="main">
           <Line data={this.state.history} options={this.options} />
         </div>

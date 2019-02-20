@@ -66,3 +66,33 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+### TODO
+
+- UIコンポーネント探し
+  - 要素
+    - 日付選択
+    - コンボボックス（朝晩）
+    - 実数入力（体重）
+    - ボタン
+    - 確認ダイアログ
+    - 吹き出し、ツールチップ
+  - 候補
+    - React Desktop
+      - コンポーネント少ない（日付なし）
+      - input が full-width になってしまう
+    - Semantic UI
+      - コンポーネントは豊富で、使い勝手はまぁまぁ良い（イマイチ慣れないところがあるが...）
+      - DatePicker はなく、標準のカレンダーを使う様子
+    - Material UI
+      - ザ・Android っぽくなってしまいそうなので回避
+    - Bootstrap
+- 言い訳追加
+- データ修正
+  - 範囲外データをどうやって消す？
+- 朝晩2回計測できるように
+- 使い始める
+  - 軸の初期化
+- データの保存
+  - localStorage or RDB or ...
+- 前月の計測結果を見る

@@ -1,3 +1,13 @@
 .App {
   padding: 10px;
 }
+.app-title {
+  font-size: 48px;
+  font-family: 'HGP行書体';
+}
+.add-record-form .input {
+  margin-right: 10px;
+}
+.add-record-form .weight-input input {
+  width: 120px;
+}
