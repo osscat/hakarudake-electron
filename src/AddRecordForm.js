@@ -4,22 +4,21 @@ import { Button, Dropdown, Input } from 'semantic-ui-react';
 export default class AddRecordForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {date: '2019-02-06', weight: '64.9'};
-
-    this.handleDateChange = this.handleDateChange.bind(this);
-    this.handleWeightChange = this.handleWeightChange.bind(this);
-    this.addRecord = this.addRecord.bind(this);
+    this.state = {
+      date: '2019-02-06', 
+      weight: '64.9'
+    };
   }
 
-  handleDateChange(event) {
+  handleDateChange = (event) => {
     this.setState({date: event.target.value});
   }
 
-  handleWeightChange(event) {
+  handleWeightChange = (event) => {
     this.setState({weight: event.target.value});
   }
 
-  addRecord() {
+  addRecord = () => {
     this.props.onSubmit({
       date: this.state.date,
       weight: this.state.weight

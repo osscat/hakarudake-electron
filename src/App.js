@@ -12,10 +12,6 @@ class App extends Component {
     this.state = {
       data: []
     };
-
-    this.handleAddRecord = this.handleAddRecord.bind(this);
-    this.addSampleHistory = this.addSampleHistory.bind(this);
-    this.resetHistory = this.resetHistory.bind(this);
   }
 
   statusLabel() {
@@ -36,11 +32,11 @@ class App extends Component {
     })
   }
 
-  handleAddRecord(record) {
+  handleAddRecord = (record) => {
     this.addRecords([{ date: record.date, weight: record.weight }]);
   }
 
-  addSampleHistory() {
+  addSampleHistory = () => {
     this.addRecords([
       { date: '2019-02-01', weight: 63.5 },
       { date: '2019-02-02', weight: 64.2 },
@@ -50,7 +46,7 @@ class App extends Component {
     ]);
   }
 
-  resetHistory() {
+  resetHistory = () => {
     this.setState({
       data: []
     });
