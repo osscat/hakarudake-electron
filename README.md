@@ -67,8 +67,8 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
 
-### TODO
-
+- 構成
+  - Electron + React + Chart.js + Semantic UI
 - UIコンポーネント探し
   - 要素
     - 日付選択
@@ -81,18 +81,22 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
     - React Desktop
       - コンポーネント少ない（日付なし）
       - input が full-width になってしまう
+    - Material UI
+      - 一番人気
+      - ザ・Android っぽくなってしまいそうなので回避
     - Semantic UI
       - コンポーネントは豊富で、使い勝手はまぁまぁ良い（イマイチ慣れないところがあるが...）
       - DatePicker はなく、標準のカレンダーを使う様子
-    - Material UI
-      - ザ・Android っぽくなってしまいそうなので回避
     - Bootstrap
-- 言い訳追加
-- データ修正
-  - 範囲外データをどうやって消す？
-- 朝晩2回計測できるように
+
+### TODO
+
 - 使い始める
   - 軸の初期化
 - データの保存
   - localStorage or RDB or ...
+- 言い訳追加
+- データ修正
+  - 範囲外データをどうやって消す？
+- 朝晩2回計測できるように
 - 前月の計測結果を見る
