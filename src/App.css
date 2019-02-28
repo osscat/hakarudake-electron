@@ -4,6 +4,7 @@
 .app-title {
   font-size: 48px;
   font-family: 'HGP行書体';
+  margin-right: 20px;
 }
 .add-record-form .input {
   margin-right: 10px;
