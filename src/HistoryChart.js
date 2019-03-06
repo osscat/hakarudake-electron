@@ -49,6 +49,13 @@ export default class HistoryChart extends Component {
     };
   }
 
+  componentDidMount() {
+    if (this.props.data.length) {
+      this.rebuildHistory();
+      this.adjustAxes();
+    }
+  }
+
   componentDidUpdate(prevProps) {
     if (!_.isEqual(this.props.data, prevProps.data)) {
       this.rebuildHistory();
@@ -93,7 +100,7 @@ export default class HistoryChart extends Component {
     } else {
       minDate = moment();
       maxDate = moment().add(1, 'month');
-      
+
       // データリセットした場合、y軸はそのまま維持する
     }
 

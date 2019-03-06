@@ -6,11 +6,15 @@ import HistoryChart from './HistoryChart';
 import './App.css';
 
 class App extends Component {
+  static dataKey = "hakarudake-data";
+
   constructor(props) {
     super(props);
 
+    let savedData = localStorage.getItem(App.dataKey);
+    savedData = savedData ? JSON.parse(savedData) : [];
     this.state = {
-      data: []
+      data: savedData
     };
   }
 
@@ -27,9 +31,12 @@ class App extends Component {
       style: 'circle',
       radius: 3
     }, record));
+    const newData = this.state.data.concat(added);
+
     this.setState({
-      data: this.state.data.concat(added)
-    })
+      data: newData
+    });
+    localStorage.setItem(App.dataKey, JSON.stringify(newData));
   }
 
   handleAddRecord = (record) => {
@@ -50,6 +57,7 @@ class App extends Component {
     this.setState({
       data: []
     });
+    localStorage.removeItem(App.dataKey);
   }
 
   render() {
