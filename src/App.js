@@ -1,7 +1,8 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { Menu, Dropdown } from 'semantic-ui-react';
+import { Menu, Dropdown, Grid } from 'semantic-ui-react';
 import AddRecordForm from './AddRecordForm';
+import EditRecordForm from './EditRecordForm';
 import HistoryChart from './HistoryChart';
 import './App.css';
 
@@ -14,7 +15,8 @@ class App extends Component {
     let savedData = localStorage.getItem(App.dataKey);
     savedData = savedData ? JSON.parse(savedData) : [];
     this.state = {
-      data: savedData
+      data: savedData,
+      selectedRecord: null
     };
   }
 
@@ -33,13 +35,18 @@ class App extends Component {
     }, record));
     const newData = this.state.data.concat(added);
 
+    // 編集時に要素を特定できるようにIDを振る
+    for (let i = 0; i < newData.length; i++) {
+      newData[i].id = i;
+    }
+
     this.setState({
       data: newData
     });
     localStorage.setItem(App.dataKey, JSON.stringify(newData));
   }
 
-  handleAddRecord = (record) => {
+  onRecordAdded = (record) => {
     this.addRecords([{ date: record.date, weight: record.weight }]);
   }
 
@@ -60,6 +67,22 @@ class App extends Component {
     localStorage.removeItem(App.dataKey);
   }
 
+  onRecordEdited = (record) => {
+    const modifiedData = _.clone(this.state.data);
+    modifiedData.splice(record.id, 1, record);
+
+    this.setState({
+      data: modifiedData
+    });
+    localStorage.setItem(App.dataKey, JSON.stringify(modifiedData));
+  }
+
+  onChartClicked = (record) => {
+    this.setState({
+      selectedRecord: record ? this.state.data[record.id] : null
+    });
+  }
+
   render() {
     return (
       <div className="App">
@@ -76,10 +99,17 @@ class App extends Component {
           </Menu.Item>
 
           <Menu.Item position='right'>
-            <AddRecordForm onSubmit={this.handleAddRecord} />
+            <AddRecordForm onSubmit={this.onRecordAdded} />
           </Menu.Item>
         </Menu>
-        <HistoryChart data={this.state.data} />
+        <Grid>
+          <Grid.Column width={11}>
+            <HistoryChart data={this.state.data} onClick={this.onChartClicked} />
+          </Grid.Column>
+          <Grid.Column width={4}>
+            <EditRecordForm record={this.state.selectedRecord} onSubmit={this.onRecordEdited} />
+          </Grid.Column>
+        </Grid>
       </div>
     );
   }

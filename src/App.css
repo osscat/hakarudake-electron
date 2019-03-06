@@ -12,3 +12,6 @@
 .add-record-form .weight-input input {
   width: 120px;
 }
+.edit-record-form {
+  margin-top: 60px;
+}

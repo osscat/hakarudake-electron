@@ -1,11 +1,11 @@
 import _ from 'lodash';
 import moment from 'moment';
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { defaults, Line } from 'react-chartjs-2';
 
 defaults.global.defaultFontSize = '16';
 
-export default class HistoryChart extends Component {
+export default class HistoryChart extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -21,6 +21,7 @@ export default class HistoryChart extends Component {
         }]
       },
       options: {
+        maintainAspectRatio: false,
         title: {
           display: true,
           text: '体重の記録'
@@ -70,6 +71,7 @@ export default class HistoryChart extends Component {
     const sorted = _.sortBy(this.props.data, 'date');
     dataset.data = sorted.map(v => {
       return {
+        id: v.id,
         x: v.date,
         y: v.weight
       }
@@ -119,10 +121,26 @@ export default class HistoryChart extends Component {
     });
   }
 
+  onElementsClick = (elems) => {
+    if (!elems.length) {
+      this.props.onClick(null);
+      return
+    }
+    const record = this.state.history.datasets[0].data[elems[0]._index];
+    this.props.onClick({
+      id: record.id
+    });
+  }
+
   render() {
     return (
       <div className="main">
-        <Line redraw={true} data={this.state.history} options={this.state.options} />
+        <Line
+          height={400}
+          redraw={true}
+          onElementsClick={this.onElementsClick}
+          data={this.state.history}
+          options={this.state.options} />
       </div>
     )
   }
