@@ -75,22 +75,33 @@ export default class HistoryChart extends Component {
   }
 
   adjustAxes() {
-    let startDate;
+    let minDate;
+    let maxDate;
     let initailWeight;
     if (this.props.data.length) {
-      const first = _.sortBy(this.props.data, 'date')[0];
-      startDate = first.date;
-      initailWeight = Math.ceil(first.weight);
+      const sorted = _.sortBy(this.props.data, 'date');
+      minDate = _.first(sorted).date;
+      maxDate = _.last(sorted).date;
+
+      // 少なくとも開始日から1か月間は表示する
+      const aMonthAfter = moment(minDate).add(1, 'month')
+      if (aMonthAfter.isAfter(maxDate)) {
+        maxDate = aMonthAfter;
+      }
+
+      initailWeight = Math.ceil(_.first(sorted).weight);
     } else {
-      startDate = moment();
+      minDate = moment();
+      maxDate = moment().add(1, 'month');
+      
       // データリセットした場合、y軸はそのまま維持する
     }
 
     const options = _.cloneDeep(this.state.options);
     const xAxis = options.scales.xAxes[0];
     const yAxis = options.scales.yAxes[0];
-    xAxis.time.min = startDate;
-    xAxis.time.max = moment(startDate).add(1, 'month');
+    xAxis.time.min = minDate;
+    xAxis.time.max = maxDate;
     if (initailWeight) {
       yAxis.ticks.min = initailWeight - 6;
       yAxis.ticks.max = initailWeight + 3;
