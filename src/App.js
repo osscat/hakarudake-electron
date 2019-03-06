@@ -52,11 +52,11 @@ class App extends Component {
 
   addSampleHistory = () => {
     this.addRecords([
-      { date: '2019-02-01', weight: 63.5 },
-      { date: '2019-02-02', weight: 64.2 },
-      { date: '2019-02-03', weight: 63.8 },
-      { date: '2019-02-04', weight: 64.3, style: 'rectRounded', radius: 10 },
-      { date: '2019-02-05', weight: 63.3 }
+      { date: '2019-02-01', weight: "63.5" },
+      { date: '2019-02-02', weight: "64.2" },
+      { date: '2019-02-03', weight: "63.8" },
+      { date: '2019-02-04', weight: "64.3", style: 'rectRounded', radius: 10 },
+      { date: '2019-02-05', weight: "63.3" }
     ]);
   }
 
