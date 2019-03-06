@@ -31,6 +31,7 @@ class App extends Component {
   addRecords(records) {
     const added = records.map(record => _.merge({
       style: 'circle',
+      hoverRadius: 8,
       radius: 3
     }, record));
     const newData = this.state.data.concat(added);

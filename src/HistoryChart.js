@@ -78,6 +78,7 @@ export default class HistoryChart extends PureComponent {
     });
     dataset.pointStyle = sorted.map(v => v.style);
     dataset.pointRadius = sorted.map(v => v.radius);
+    dataset.pointHoverRadius = sorted.map(v => v.hoverRadius);
     this.setState({
       history: history
     });
