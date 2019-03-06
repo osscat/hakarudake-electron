@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { Segment, Button, Dropdown, Input } from 'semantic-ui-react';
+import { Segment, Button, Dropdown, Form, Input, TextArea } from 'semantic-ui-react';
 
 export default class EditRecordForm extends Component {
   constructor(props) {
@@ -46,32 +46,40 @@ export default class EditRecordForm extends Component {
           {!isEmpty &&
             <div>
               <p>記録を編集</p>
-              <Input
-                type="date"
-                name="date"
-                className="date-input"
-                label={<Dropdown defaultValue='朝' options={options} />}
-                labelPosition='right'
-                value={this.state.record.date}
-                onChange={this.onChange}
+              <Form>
+                <Input
+                  type="date"
+                  name="date"
+                  className="date-input"
+                  label={<Dropdown defaultValue='朝' options={options} />}
+                  labelPosition='right'
+                  value={this.state.record.date}
+                  onChange={this.onChange}
+                  />
+                <Input
+                  type="number"
+                  name="weight"
+                  className="weight-input"
+                  label={{ basic: true, content: 'kg' }}
+                  labelPosition='right'
+                  placeholder='体重'
+                  step="0.1"
+                  value={this.state.record.weight} 
+                  onChange={this.onChange}
                 />
-              <Input
-                type="number"
-                name="weight"
-                className="weight-input"
-                label={{ basic: true, content: 'kg' }}
-                labelPosition='right'
-                placeholder='体重'
-                step="0.1"
-                value={this.state.record.weight} 
-                onChange={this.onChange}
-              />
-              <Button
-                color="orange"
-                content='保存'
-                size="medium"
-                onClick={this.editRecord}
-              />
+                <TextArea
+                  name="memo"
+                  placeholder='言い訳とか'
+                  value={this.state.record.memo} 
+                  onChange={this.onChange}
+                />
+                <Button
+                  color="orange"
+                  content='保存'
+                  size="medium"
+                  onClick={this.editRecord}
+                />
+              </Form>
             </div>
           }
         </Segment>
