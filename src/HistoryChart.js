@@ -149,7 +149,7 @@ export default class HistoryChart extends PureComponent {
     return (
       <div className="main">
         <Line
-          height={400}
+          height={500}
           redraw={true}
           onElementsClick={this.onElementsClick}
           data={this.state.history}
