@@ -56,7 +56,7 @@ class App extends Component {
       { date: '2019-02-01', weight: "63.5" },
       { date: '2019-02-02', weight: "64.2" },
       { date: '2019-02-03', weight: "63.8" },
-      { date: '2019-02-04', weight: "64.3", style: 'rectRounded', radius: 10 },
+      { date: '2019-02-04', weight: "64.3" },
       { date: '2019-02-05', weight: "63.3" }
     ]);
   }
@@ -69,6 +69,13 @@ class App extends Component {
   }
 
   onRecordEdited = (record) => {
+    // 言い訳がある場合はグラフ上で強調表示
+    if (record.memo) {
+      record.style = 'rectRounded';
+      record.radius = 10;
+      record.hoverRadius = 10;
+    }
+
     const modifiedData = _.clone(this.state.data);
     modifiedData.splice(record.id, 1, record);
 
@@ -103,6 +110,7 @@ class App extends Component {
             <AddRecordForm onSubmit={this.onRecordAdded} />
           </Menu.Item>
         </Menu>
+
         <Grid>
           <Grid.Column width={11}>
             <HistoryChart data={this.state.data} onClick={this.onChartClicked} />
