@@ -70,7 +70,7 @@ export default class EditRecordForm extends Component {
                 <TextArea
                   name="memo"
                   placeholder='言い訳とか'
-                  value={this.state.record.memo} 
+                  value={this.state.record.memo||''} 
                   onChange={this.onChange}
                 />
                 <Button
