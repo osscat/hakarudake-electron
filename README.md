@@ -2,7 +2,7 @@
 Simple weight recording tool.
 
 ## build for developement
-`yarn serve`
+`yarn start`
 
 ## build for production
 `yarn dist`
