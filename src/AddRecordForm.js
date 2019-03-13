@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React, { Component } from 'react';
 import { Button, Dropdown, Input } from 'semantic-ui-react';
 
@@ -5,24 +6,23 @@ export default class AddRecordForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      date: '2019-02-06', 
-      weight: '64.9'
+      record: {
+        date: moment().format('YYYY-MM-DD'), 
+        weight: '64.9'  
+      }
     };
   }
 
-  handleDateChange = (event) => {
-    this.setState({date: event.target.value});
-  }
-
-  handleWeightChange = (event) => {
-    this.setState({weight: event.target.value});
+  onChange = (event) => {
+    const record = this.state.record;
+    record[event.target.name] = event.target.value;
+    this.setState({
+      record: record
+    });
   }
 
   addRecord = () => {
-    this.props.onSubmit({
-      date: this.state.date,
-      weight: this.state.weight
-    })
+    this.props.onSubmit(this.state.record);
   }
 
   render() {
@@ -36,21 +36,23 @@ export default class AddRecordForm extends Component {
         新しい記録：
         <Input
           type="date"
+          name="date"
           className="date-input"
           label={<Dropdown defaultValue='朝' options={options} />}
           labelPosition='right'
-          value={this.state.date}
-          onChange={this.handleDateChange}
+          value={this.state.record.date}
+          onChange={this.onChange}
           />
         <Input
           type="number"
+          name="weight"
           className="weight-input"
           label={{ basic: true, content: 'kg' }}
           labelPosition='right'
           placeholder='体重'
           step="0.1"
-          value={this.state.weight} 
-          onChange={this.handleWeightChange}
+          value={this.state.record.weight} 
+          onChange={this.onChange}
         />
         <Button
           color="orange"
