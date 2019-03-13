@@ -45,6 +45,13 @@ export default class HistoryChart extends PureComponent {
           yAxes: [{
             ticks: { min: 50, max: 100 }
           }]
+        },
+        tooltips: {
+          titleFontStyle: 'normal',
+          filter: item => this.getRecord(item.index).memo,
+          callbacks: {
+            title: items => items.length ? this.getRecord(items[0].index).memo : null
+          }
         }
       }
     };
@@ -73,7 +80,8 @@ export default class HistoryChart extends PureComponent {
       return {
         id: v.id,
         x: v.date,
-        y: v.weight
+        y: v.weight,
+        memo: v.memo
       }
     });
     dataset.pointStyle = sorted.map(v => v.style);
@@ -122,12 +130,16 @@ export default class HistoryChart extends PureComponent {
     });
   }
 
+  getRecord(index) {
+    return this.state.history.datasets[0].data[index];
+  }
+
   onElementsClick = (elems) => {
     if (!elems.length) {
       this.props.onClick(null);
       return
     }
-    const record = this.state.history.datasets[0].data[elems[0]._index];
+    const record = this.getRecord(elems[0]._index);
     this.props.onClick({
       id: record.id
     });
