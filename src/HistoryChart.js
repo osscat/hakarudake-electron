@@ -94,7 +94,7 @@ export default class HistoryChart extends PureComponent {
       maxDate = _.last(sorted).date;
 
       // 少なくとも開始日から1か月間は表示する
-      const aMonthAfter = moment(minDate).add(1, 'month')
+      const aMonthAfter = moment(minDate).add(30, 'day')
       if (aMonthAfter.isAfter(maxDate)) {
         maxDate = aMonthAfter;
       }
