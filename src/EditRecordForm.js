@@ -1,6 +1,8 @@
 import _ from 'lodash';
+import moment from 'moment';
 import React, { Component } from 'react';
 import { Segment, Button, Dropdown, Form, Input, TextArea } from 'semantic-ui-react';
+import { TIME_OPTIONS } from './AppConst';
 
 export default class EditRecordForm extends Component {
   constructor(props) {
@@ -12,29 +14,41 @@ export default class EditRecordForm extends Component {
 
   componentDidUpdate(prevProps) {
     if (!_.isEqual(this.props.record, prevProps.record)) {
+      const record = _.clone(this.props.record);
+      if (record) {
+        // 日付と時刻に分解
+        const datetime = record.date;
+        record.date = moment(datetime).format('YYYY-MM-DD');
+        record.hour = moment(datetime).format('H');
+      }
       this.setState({
-        record: _.clone(this.props.record)
+        record: record
       });
     }
   }
 
-  onChange = (event) => {
+  onChange = (event, data) => {
     const record = this.state.record;
-    record[event.target.name] = event.target.value;
+    const name = data.name || 'hour';
+    record[name] = data.value;
     this.setState({
       record: record
     });
   }
 
   editRecord = () => {
-    this.props.onSubmit(this.state.record);
+    // 分解していた日付と時刻を統合
+    const record = this.state.record;
+    record.date = moment(record.date).set('hour', record.hour);
+    delete record.hour;
+
+    this.props.onSubmit(record);
+    this.setState({
+      record: null
+    });    
   }
 
   render() {
-    const options = [
-      { key: '朝', text: '朝', value: '朝' },
-      { key: '夜', text: '夜', value: '夜' },
-    ]
     const isEmpty = !this.state.record; 
     
     return (
@@ -48,17 +62,20 @@ export default class EditRecordForm extends Component {
               <p>記録を編集</p>
               <Form>
                 <Input
-                  type="date"
-                  name="date"
+                  name="date" type="date"
                   className="date-input"
-                  label={<Dropdown defaultValue='朝' options={options} />}
+                  label={
+                    <Dropdown
+                      options={TIME_OPTIONS}
+                      value={this.state.record.hour}
+                      onChange={this.onChange}
+                    />}
                   labelPosition='right'
                   value={this.state.record.date}
                   onChange={this.onChange}
-                  />
+                />
                 <Input
-                  type="number"
-                  name="weight"
+                  name="weight" type="number"
                   className="weight-input"
                   label={{ basic: true, content: 'kg' }}
                   labelPosition='right'

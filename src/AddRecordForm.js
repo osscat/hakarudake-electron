@@ -1,57 +1,57 @@
 import moment from 'moment';
 import React, { Component } from 'react';
 import { Button, Dropdown, Input } from 'semantic-ui-react';
+import { TIME_OPTIONS } from './AppConst';
 
 export default class AddRecordForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      record: {
-        date: moment().format('YYYY-MM-DD'), 
-        weight: '64.9'  
-      }
+      date: moment().format('YYYY-MM-DD'),
+      hour: '7',
+      weight: ''
     };
   }
 
-  onChange = (event) => {
-    const record = this.state.record;
-    record[event.target.name] = event.target.value;
+  onChange = (event, data) => {
+    const name = data.name || 'hour';
     this.setState({
-      record: record
+      [name]: data.value
     });
   }
 
   addRecord = () => {
-    this.props.onSubmit(this.state.record);
+    this.props.onSubmit({
+      date: moment(this.state.date).set('hour', this.state.hour),
+      weight: this.state.weight
+    });
   }
 
   render() {
-    const options = [
-      { key: '朝', text: '朝', value: '朝' },
-      { key: '夜', text: '夜', value: '夜' },
-    ]
-    
     return (
       <div className="add-record-form">
         新しい記録：
         <Input
-          type="date"
-          name="date"
+          name="date" type="date"
           className="date-input"
-          label={<Dropdown defaultValue='朝' options={options} />}
+          label={
+            <Dropdown
+              options={TIME_OPTIONS}
+              value={this.state.hour}
+              onChange={this.onChange}
+            />}
           labelPosition='right'
-          value={this.state.record.date}
+          value={this.state.date}
           onChange={this.onChange}
-          />
+        />
         <Input
-          type="number"
-          name="weight"
+          name="weight" type="number"
           className="weight-input"
           label={{ basic: true, content: 'kg' }}
           labelPosition='right'
           placeholder='体重'
           step="0.1"
-          value={this.state.record.weight} 
+          value={this.state.weight} 
           onChange={this.onChange}
         />
         <Button
