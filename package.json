@@ -33,9 +33,10 @@
   },
   "build": {
     "appId": "net.osscat.hakarudake",
+    "extends": null,
     "productName": "hakarudake",
     "win": {
-      "iconUrl": "https://cdn2.iconfinder.com/data/icons/designer-skills/128/react-256.png"
+      "icon": "build/react-256.png"
     },
     "directories": {
       "buildResources": "public"
