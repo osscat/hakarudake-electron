@@ -1,7 +1,7 @@
 {
   "name": "hakarudake-react-new",
   "description": "Simple weight monitoring tool",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "author": {
     "name": "Naotaka Nakanishi"
   },
@@ -37,7 +37,7 @@
     "extends": null,
     "productName": "hakarudake",
     "win": {
-      "icon": "build/react-256.png"
+      "icon": "build/icon.ico"
     },
     "directories": {
       "buildResources": "public"
