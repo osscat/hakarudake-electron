@@ -24,7 +24,7 @@ class App extends Component {
   statusLabel() {
     if (this.state.data.length) {
       const first = _.sortBy(this.state.data, 'date')[0];
-      return moment(first.date).format('YYYY-MM-DD') + 'から開始'
+      return moment(first.date).format('YYYY-MM-DD') + ' 開始'
     } else {
       return '未開始'
     }

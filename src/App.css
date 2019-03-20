@@ -1,16 +1,24 @@
 .App {
   padding: 10px;
+  min-width: 1280px;
 }
 .app-title {
   font-size: 48px;
   font-family: 'HGP行書体';
   margin-right: 20px;
 }
-.add-record-form .input {
-  margin-right: 10px;
+.add-record-form {
+  margin-top: 1em;
+  font-size: 1em !important;
+}
+.add-record-form .date-input input {
+  width: 156px !important;
+}
+.add-record-form .hour-input {
+  width: 60px;
 }
 .add-record-form .weight-input input {
-  width: 120px;
+  width: 96px !important;
 }
 .edit-record-form {
   margin-top: 60px;
