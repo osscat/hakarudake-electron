@@ -95,9 +95,12 @@ export default class HistoryChart extends PureComponent {
   adjustAxes() {
     let minDate;
     let maxDate;
-    let initailWeight;
+    let minWeight;
+    let maxWeight;
+
+    // 最大、最小を算出
     if (this.props.data.length) {
-      const sorted = _.sortBy(this.props.data, 'date');
+      let sorted = _.sortBy(this.props.data, 'date');
       minDate = _.first(sorted).date;
       maxDate = _.last(sorted).date;
 
@@ -107,7 +110,15 @@ export default class HistoryChart extends PureComponent {
         maxDate = aMonthAfter;
       }
 
-      initailWeight = Math.ceil(_.first(sorted).weight);
+      const initailWeight = Math.ceil(_.first(sorted).weight);
+
+      // 体重順に並べ直してy軸の範囲を計算
+      sorted = _.sortBy(this.props.data, 'weight');
+      minWeight = _.first(sorted).weight;
+      maxWeight = _.last(sorted).weight;
+
+      minWeight = Math.min(initailWeight - 6, minWeight);
+      maxWeight = Math.max(initailWeight + 3, maxWeight);
     } else {
       minDate = moment();
       maxDate = moment().add(1, 'month');
@@ -115,14 +126,15 @@ export default class HistoryChart extends PureComponent {
       // データリセットした場合、y軸はそのまま維持する
     }
 
+    // 軸に設定
     const options = _.cloneDeep(this.state.options);
     const xAxis = options.scales.xAxes[0];
     const yAxis = options.scales.yAxes[0];
     xAxis.time.min = minDate;
     xAxis.time.max = maxDate;
-    if (initailWeight) {
-      yAxis.ticks.min = initailWeight - 6;
-      yAxis.ticks.max = initailWeight + 3;
+    if (minWeight) {
+      yAxis.ticks.min = minWeight;
+      yAxis.ticks.max = maxWeight;
     }
 
     this.setState({
