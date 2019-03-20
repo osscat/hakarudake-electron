@@ -2,6 +2,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import React, { Component } from 'react';
 import { Segment, Button, Dropdown, Form, Input, TextArea } from 'semantic-ui-react';
+import { DateInput } from 'semantic-ui-calendar-react';
 import { TIME_OPTIONS } from './AppConst';
 
 export default class EditRecordForm extends Component {
@@ -61,37 +62,47 @@ export default class EditRecordForm extends Component {
             <div>
               <p>記録を編集</p>
               <Form>
-                <Input
-                  name="date" type="date"
+                <DateInput
+                  name="date"
                   className="date-input"
-                  label={
-                    <Dropdown
-                      options={TIME_OPTIONS}
-                      value={this.state.record.hour}
-                      onChange={this.onChange}
-                    />}
-                  labelPosition='right'
+                  dateFormat="YYYY-MM-DD"
+                  popupPosition="bottom center"
+                  icon={false}
                   value={this.state.record.date}
                   onChange={this.onChange}
                 />
-                <Input
-                  name="weight" type="number"
-                  className="weight-input"
-                  label={{ basic: true, content: 'kg' }}
-                  labelPosition='right'
-                  placeholder='体重'
-                  step="0.1"
-                  value={this.state.record.weight} 
-                  onChange={this.onChange}
-                />
-                <TextArea
-                  name="memo"
-                  placeholder='言い訳とか'
-                  value={this.state.record.memo||''} 
-                  onChange={this.onChange}
-                />
+                <Form.Field>
+                  <Dropdown
+                    className="hour-input huge"
+                    compact
+                    selection
+                    options={TIME_OPTIONS}
+                    value={this.state.record.hour}
+                    onChange={this.onChange}
+                  />
+                </Form.Field>
+                <Form.Field>
+                  <Input
+                    name="weight" type="number"
+                    className="weight-input"
+                    label={{ basic: true, content: 'kg' }}
+                    labelPosition='right'
+                    placeholder='体重'
+                    step="0.1"
+                    value={this.state.record.weight} 
+                    onChange={this.onChange}
+                  />
+                </Form.Field>
+                <Form.Field>
+                  <TextArea
+                    name="memo"
+                    placeholder='言い訳とか'
+                    value={this.state.record.memo||''} 
+                    onChange={this.onChange}
+                  />
+                </Form.Field>
                 <Button
-                  color="orange"
+                  color="yellow"
                   content='保存'
                   size="medium"
                   onClick={this.editRecord}
