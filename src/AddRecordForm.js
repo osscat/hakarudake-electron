@@ -58,6 +58,7 @@ export default class AddRecordForm extends Component {
           color="orange"
           content='追加'
           size="huge"
+          disabled={!this.state.date||!this.state.weight}
           onClick={this.addRecord}
         />
       </div>
