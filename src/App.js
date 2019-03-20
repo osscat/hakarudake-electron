@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import moment from 'moment';
 import React, { Component } from 'react';
 import { Menu, Dropdown, Grid } from 'semantic-ui-react';
 import AddRecordForm from './AddRecordForm';
@@ -22,7 +23,8 @@ class App extends Component {
 
   statusLabel() {
     if (this.state.data.length) {
-      return _.sortBy(this.state.data, 'date')[0].date + 'から開始'
+      const first = _.sortBy(this.state.data, 'date')[0];
+      return moment(first.date).format('YYYY-MM-DD') + 'から開始'
     } else {
       return '未開始'
     }
@@ -53,11 +55,11 @@ class App extends Component {
 
   addSampleHistory = () => {
     this.addRecords([
-      { date: '2019-03-01 07', weight: "63.5" },
-      { date: '2019-03-01 21', weight: "64.2" },
-      { date: '2019-03-02 07', weight: "63.8" },
-      { date: '2019-03-02 21', weight: "64.3" },
-      { date: '2019-03-03 07', weight: "63.3" }
+      { date: moment('2019-03-01 07'), weight: "63.5" },
+      { date: moment('2019-03-01 21'), weight: "64.2" },
+      { date: moment('2019-03-02 07'), weight: "63.8" },
+      { date: moment('2019-03-02 21'), weight: "64.3" },
+      { date: moment('2019-03-03 07'), weight: "63.3" }
     ]);
   }
 
