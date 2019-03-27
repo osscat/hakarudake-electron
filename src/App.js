@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { Menu, Dropdown, Grid } from 'semantic-ui-react';
 import AddRecordForm from './AddRecordForm';
 import EditRecordForm from './EditRecordForm';
+import Tips from './Tips';
 import HistoryChart from './HistoryChart';
 import './App.css';
 
@@ -119,6 +120,7 @@ class App extends Component {
           </Grid.Column>
           <Grid.Column width={4}>
             <EditRecordForm record={this.state.selectedRecord} onSubmit={this.onRecordEdited} />
+            <Tips dataCount={this.state.data.length} />
           </Grid.Column>
         </Grid>
       </div>
